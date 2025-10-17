@@ -1,20 +1,24 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# qfive
+
 # Under Five Mortality Rate (u5MR) estimation.
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-The goal of qfive is to …
+The goal of `qfive` is to …
 
-## Installation
+## How to load `qfive` package in R?
 
 You can install the development version of qfive like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("devtools")
+
+devtools::install_github("APDataSc/qfive")
 ```
 
 ## Example
