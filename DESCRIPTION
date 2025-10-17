@@ -1,5 +1,5 @@
 Package: qfive
-Title: Estimation of Under Five Mortality Rate (u5MR)
+Title: Under Five Mortality Rate (u5MR) estimation.
 Version: 0.0.0.9000
 Authors@R: 
     person("Andrés", "Peña Montalvo", , "agpena@colmex.mx", role = c("aut", "cre"))
