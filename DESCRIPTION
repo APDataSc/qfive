@@ -11,6 +11,7 @@ RoxygenNote: 7.3.2
 Depends: 
     R (>= 3.5)
 LazyData: true
+LazyDataCompression: gzip
 Imports: 
     data.table (>= 1.17.8),
     dplyr (>= 1.1.4)
