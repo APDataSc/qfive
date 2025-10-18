@@ -23,8 +23,8 @@ function (data, women = "women", child_born = "child_born",
                                model = "CD West", svy_year, sex,
                                e_0 = 60, mac = 28){
 
-mlt <- get("mlt", envir = as.environment("package:qfive"))
-modelLTx1 <- get("modelLTx1", envir = as.environment("package:qfive"))
+mlt <- get_coef_data("mlt")
+modelLTx1 <- get_coef_data("modelLTx1")
 
   agegrp <- data[[agegrp]]
   women <- data[[women]]
@@ -63,4 +63,9 @@ modelLTx1 <- get("modelLTx1", envir = as.environment("package:qfive"))
 
   data.frame(agegrp, women, child_born, child_dead, pi, di,
              ki, qx, ti, year, q1, q5)
+}
+
+
+get_coef_data <- function(x) {
+  eval(parse(text = x))
 }
