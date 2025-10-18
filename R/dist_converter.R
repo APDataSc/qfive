@@ -28,16 +28,28 @@ function(dist_value,
 }
 
 
-#' Distance values and units
+#' Coefficients for the estimation of child mortality multipliers
 #'
-#' Distance values and corresponding unit (feet, meters, or inches)
-# Update format
-#' @format Data frame with two columns and 1000 rows.
-# Document column names and information
-#' \describe{
-#' \item{value}{Numeric distance value.}
-#' \item{unit}{Distance unit.}
-#' }
-# Add example and string of data name
-#' @examples
-#' distance_data
+#' This is a dataset of coefficients used to estimate multipliers `k(i)` in the TRUSSELL version of
+#' the BRASS method, using Coale-Demeny mortality models.
+#'
+#' @details
+#' The basic estimation equation for the Trussell method (equation 4.3) is
+#'
+#' \deqn{k(i) = a(i) + b(i) P(1)/P(2) + c(i) P(2)/P(3)}
+#'
+#' - extracted from page 26, Table 4.
+#'
+#' @docType data
+#'
+#' @usage data(mlt)
+#'
+#' @format A data frame
+#'
+#' @keywords datasets
+#'
+#' @references United Nations Population Studies (1990) Step-by-Step Guide
+#' to the Estimation of Child Mortality No.107:1-83
+#' (\href{https://www.un.org/en/development/desa/population/publications/pdf/mortality/stepguide_childmort.pdf}{United Nations})
+#'
+"mlt"
