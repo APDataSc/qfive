@@ -16,12 +16,16 @@
 #' @return A data frame with the q_1, q_5 and reference time estimated.
 # Export this function
 #' @export
-
+#'
 u5mr <-
 function (data, women = "women", child_born = "child_born",
                                child_dead = "child_dead", agegrp = "agegrp",
                                model = "CD West", svy_year, sex,
-                               e_0 = 60, mac = 27){
+                               e_0 = 60, mac = 28){
+
+mlt <- get("mlt", envir = as.environment("package:qfive"))
+modelLTx1 <- get("modelLTx1", envir = as.environment("package:qfive"))
+
   agegrp <- data[[agegrp]]
   women <- data[[women]]
   child_born <- data[[child_born]]

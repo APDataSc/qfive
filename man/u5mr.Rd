@@ -14,7 +14,7 @@ u5mr(
   svy_year,
   sex,
   e_0 = 60,
-  mac = 27
+  mac = 28
 )
 }
 \arguments{
