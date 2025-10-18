@@ -37,9 +37,30 @@ devtools::install_github("APDataSc/qfive")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r example, eval=FALSE}
 library(qfive)
+
 ## basic example code
+cmr_data22 <- data.frame(
+  agegrp = c(15, 20, 25, 30, 35, 40, 45),
+  women = c(725594, 728503, 671987, 623044, 591298, 558825, 476056),
+  child_born = c(79100, 389089, 762811, 1069998, 1293875, 1393444, 1287071),
+  child_dead = c(1757, 8282, 16627, 25003, 34509, 43514, 49648)
+)
+
+"q5 2022 - iussp"
+ecu_nac_qx_iussp22 <- u5mr(
+  cmr_data22,
+  women = "women",
+  child_born = "child_born",
+  child_dead = "child_dead",
+  agegrp = "agegrp",
+  model = "CD West", #"UN General" "UN Latin" "UN South_Asian"
+  svy_year = 2022+10/12+30/365,
+  sex = "both",
+  e_0 = 60,
+  mac = 27.94587289
+)
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
