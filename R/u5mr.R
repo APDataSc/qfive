@@ -23,8 +23,11 @@ function (data, women = "women", child_born = "child_born",
                                model = "CD West", svy_year, sex,
                                e_0 = 60, mac = 28){
 
-mlt <- get_coef_data("mlt")
-modelLTx1 <- get_coef_data("modelLTx1")
+  # Make the environment data.table-aware
+  .datatable.aware <- TRUE
+
+  mlt <- get_coef_data("mlt")
+  modelLTx1 <- get_coef_data("modelLTx1")
 
   agegrp <- data[[agegrp]]
   women <- data[[women]]
@@ -37,24 +40,27 @@ modelLTx1 <- get_coef_data("modelLTx1")
   p3 <- pi[3]
 
   coeff_trussell_ki <- mlt[ , 1:6 ]
-  t47 <- coeff_trussell_ki[lt_model == model, -1]
+  t47 <- coeff_trussell_ki[coeff_trussell_ki$lt_model == model, -1]
   ki <- t47$ai + (t47$bi * p1/p2) + (t47$ci * p2/p3) + t47$di*mac
   qx <- ki * di
 
   coeff_trussell_ti <- mlt[ , c(1:2, 7:9) ]
-  t48 <- coeff_trussell_ti[lt_model == model, -1]
+  t48 <- coeff_trussell_ti[coeff_trussell_ki$lt_model == model, -1]
   ti <- t48$ei + (t48$fi * p1/p2) + (t48$gi * p2/p3)
   year <- round(svy_year - ti, 2)
 
 # Trusell and Palloni-Helligman version
-    Ys <- modelLTx1 %>%
-      setDT() %>%
-      .[type_mlt == model & e0 == e_0] %>%  #luego poner dinámico
-      dcast(age ~ sex, value.var = "lx1", fun.aggregate = sum) %>%
-      .[age>0, lx := (1.05*male+female)/2.05] %>%
-      .[ , Ys := 0.5*log((100000-lx)/lx)] %>%
-      .[ age %in% c(1:3, 5, 10, 15, 20) ] %>%
-      pull(Ys)
+  # Filter with base R first
+  filtered_base <- modelLTx1[modelLTx1$type_mlt == model & modelLTx1$e0 == e_0, ]
+
+  # Then convert to data.table for the rest of the operations
+  filtered_dt <- data.table::as.data.table(filtered_base)
+
+  wide_dt <- data.table::dcast(filtered_dt, age ~ sex, value.var = "lx1", fun.aggregate = sum)
+  wide_dt[age > 0, lx := (1.05 * male + female) / 2.05]
+  wide_dt[, Ys := 0.5 * log((100000 - lx) / lx)]
+  final_dt <- wide_dt[age %in% c(1:3, 5, 10, 15, 20)]
+  Ys <- final_dt$Ys
 
     alpha <- 0.5*(log(qx/(1-qx)))-Ys
 
